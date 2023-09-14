@@ -9,9 +9,6 @@ export default function SignUpForm({setToken}) {
   console.log(userName);
   async function handleSubmit(e) {
     e.preventDefault();
-    if (userName.length < 8) {
-       <h2>Your username must be at least 8 characters</h2>
-    }
     try {
       const response = await fetch(apiurl, {
         method: "POST",
@@ -33,7 +30,13 @@ export default function SignUpForm({setToken}) {
   <h1>Sign Up Or Die!</h1>
   {error && <p>{error}</p>}
   <form onSubmit={handleSubmit}>
-    <label>Username:{""} <input value={userName} onChange={(e) => setUserName(e.target.value)} /></label><br />
+    <label>Username:{""} <input value={userName} onChange={(e) => setUserName(e.target.value)} />
+    {userName.length < 8 ? (
+      <p>Your username is too short and you should be ashamed.  Please write a username that is at least 8 characters</p>
+    ) : (
+      <p>Username Is Appropriate.  Thank you for your service.</p>
+    )}
+    </label><br />
     {console.log(`My username is ${userName.length} characters`)}
     <label>Password:{""} <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}/></label><br />
     <button>Submit, dear god please submit!</button>
